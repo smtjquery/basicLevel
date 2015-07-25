@@ -1,0 +1,14 @@
+{
+  "name": "list",
+  "version": "0.0.0",
+  "description": "manage my custom list of everything",
+  "repository": "local-repository",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.7.6",
+    "gulp": "^3.8.11",
+    "gulp-jshint": "^1.11.0",
+    "jshint-stylish": "^2.0.0",
+    "run-sequence": "^1.1.0"
+  }
+}

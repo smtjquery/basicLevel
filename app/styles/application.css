@@ -1,3 +1,17 @@
 body {
   margin-top: 20px;
 }
+
+.task {
+  background: #E6E2EB;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  padding: 10px;
+  position: relative;
+}
+
+.task .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}

@@ -1,7 +1,6 @@
-(function ($, service) {
-    "use strict";
+(function ($, localStorage) {
 
-    App.module.application = (function () {
+    App.module.service = (function () {
 
         function addNewTask(taskName) {
             var toDoTasksList = getStorageArray("toDoTasksList");

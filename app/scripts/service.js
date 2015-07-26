@@ -58,15 +58,15 @@
     
         function init() {
             if(!localStorage.toDoTasksList){
-                localStorage.toDoTasksList =  JSON.stringify(new Array());
+                localStorage.toDoTasksList =  JSON.stringify([]);
             }
             
             if(!localStorage.inProgressTasks){
-                localStorage.inProgressTasks = JSON.stringify(new Array());
+                localStorage.inProgressTasks = JSON.stringify([]);
             }
             
             if(!localStorage.doneTasks){
-                localStorage.doneTasks = JSON.stringify(new Array());
+                localStorage.doneTasks = JSON.stringify([]);
             }
         }
 

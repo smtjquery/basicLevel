@@ -1,51 +1,52 @@
 (function ($, localStorage) {
+    'use strict';
 
     App.module.service = (function () {
 
         function addNewTask(taskName) {
-            var toDoTasksList = getStorageArray("toDoTasksList");
+            var toDoTasksList = getStorageArray('toDoTasksList');
 
             toDoTasksList.push(taskName);
 
-            setStorageArray("toDoTasksList", toDoTasksList);
+            setStorageArray('toDoTasksList', toDoTasksList);
         }
 
         function moveTaskToProgres(taskName){
-            var toDoTasksList = getStorageArray("toDoTasksList");
-            var inProgressTasks = getStorageArray("inProgressTasks");
+            var toDoTasksList = getStorageArray('toDoTasksList');
+            var inProgressTasks = getStorageArray('inProgressTasks');
 
             var index = toDoTasksList.indexOf(taskName);
             toDoTasksList.splice(index, 1);
 
             inProgressTasks.push(taskName);
 
-            setStorageArray("toDoTasksList", toDoTasksList);
-            setStorageArray("inProgressTasks", inProgressTasks);
+            setStorageArray('toDoTasksList', toDoTasksList);
+            setStorageArray('inProgressTasks', inProgressTasks);
         }
 
         function moveTaskToDone(taskName){
-            var doneTasks = getStorageArray("doneTasks");
-            var inProgressTasks = getStorageArray("inProgressTasks");
+            var doneTasks = getStorageArray('doneTasks');
+            var inProgressTasks = getStorageArray('inProgressTasks');
 
             var index = inProgressTasks.indexOf(taskName);
             inProgressTasks.splice(index, 1);
 
             doneTasks.push(taskName);
 
-            setStorageArray("doneTasks", doneTasks);
-            setStorageArray("inProgressTasks", inProgressTasks);
+            setStorageArray('doneTasks', doneTasks);
+            setStorageArray('inProgressTasks', inProgressTasks);
         }
 
         function getAllDoneTasks(){
-            return getStorageArray("doneTasks");
+            return getStorageArray('doneTasks');
         }
 
         function getAllInProgressTasks(){
-            return getStorageArray("inProgressTasks");
+            return getStorageArray('inProgressTasks');
         }
 
         function getAllToDoTasks(){
-            return getStorageArray("toDoTasksList");
+            return getStorageArray('toDoTasksList');
         }
 
         function getStorageArray(storageName){
@@ -58,7 +59,7 @@
 
         function init() {
             if(!localStorage.toDoTasksList){
-                localStorage.toDoTasksList =  JSON.stringify([]);
+                localStorage.toDoTasksList = JSON.stringify([]);
             }
 
             if(!localStorage.inProgressTasks){

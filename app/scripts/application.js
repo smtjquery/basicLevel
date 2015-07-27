@@ -1,20 +1,33 @@
 (function ($, service) {
-    "use strict";
+  'use strict';
 
-    App.module.application = (function () {
+  /**
+   * Main app module pattern
+   *
+   * @module App
+   * @requires jQuery
+   * @requires services
+   */
+  App.module.application = (function () {
 
+    /**
+     * Initialize application
+     *
+     * @private
+     */
+    function init() {}
 
-    
-        function init() {
+    /**
+     * Run init when browser is ready.
+     *
+     * @private
+     */
+    $(function () {
+      init();
+    });
 
-        }
+    return {};
 
-        $(function () {
-            init();
-        });
+  }());
 
-        return {
-            
-        };
-    }());
 }(jQuery, App.module.service));

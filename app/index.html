@@ -21,45 +21,24 @@
         <label for="new-task">Name</label>
         <input type="text" class="form-control" id="new-task" placeholder="Enter task name">
       </div>
-      <button type="submit" class="btn btn-primary">Create</button>
+      <button id="create-task" type="submit" class="btn btn-primary">Create</button>
     </fileldset>
 
     <div class="row">
-
       <div class="task-container col-md-4">
         <h2>To Do</h2>
-
-        <!-- template for task in todo state -->
-        <div class="task">
-          <div class="title">Test task nr 1</div>
-          <div class="actions">
-            <span>Actions:</span>
-            <a href="#">move to progress</a>
-          </div>
-          <div class="close glyphicon glyphicon-remove"></div>
-        </div>
-
+        <div id="toDoTasksList"></div>
       </div>
 
       <div class="task-container col-md-4">
         <h2>Progress</h2>
-
-        <!-- template for task in progress state -->
-        <div class="task">
-          <div class="title">Test task nr 2</div>
-          <div class="actions">
-            <span>Actions:</span>
-            <a href="#">move to done</a>
-          </div>
-          <div class="close glyphicon glyphicon-remove"></div>
-        </div>
-
+        <div id="inProgressTasksList"></div>
       </div>
 
       <div class="task-container col-md-4">
         <h2>Done</h2>
+        <div id="doneTasksList"></div>
       </div>
-
     </div>
   </div>
   

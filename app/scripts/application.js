@@ -134,6 +134,12 @@
             });
         }
 
+        /**
+         * Close tasks
+         *
+         * @param {string} taskName
+         * @param {string} srcContainer
+         */
         function closeTask(taskName, srcContainer) {
             console.log(taskName, srcContainer);
             service.removeTask(taskName, srcContainer);

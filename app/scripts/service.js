@@ -3,6 +3,17 @@
 
     App.module.service = (function () {
 
+        /**
+         * Storage names
+         *
+         * @type {{todo: string, inprogress: string, done: string}}
+         */
+        var storage = {
+            "todo": "toDoTasksList",
+            "inprogress": "inProgressTasks",
+            "done": "doneTasks"
+        };
+
         function addNewTask(taskName) {
             var toDoTasksList = getStorageArray('toDoTasksList');
 
@@ -11,6 +22,10 @@
             setStorageArray('toDoTasksList', toDoTasksList);
         }
 
+        /**
+         * can be removed
+         * @param taskName
+         */
         function moveTaskToProgres(taskName){
             var toDoTasksList = getStorageArray('toDoTasksList');
             var inProgressTasks = getStorageArray('inProgressTasks');
@@ -24,6 +39,49 @@
             setStorageArray('inProgressTasks', inProgressTasks);
         }
 
+        /**
+         * Move task from source to target storage
+         *
+         * @param {string} taskName
+         * @param {string} src
+         * @param {string} target
+         */
+        function moveTask(taskName, src, target){
+            if (src === target) {
+                return false;
+            }
+
+            var srcList = getStorageArray(storage[src]);
+            var targetList = getStorageArray(storage[target]);
+
+            var index = srcList.indexOf(taskName);
+            srcList.splice(index, 1);
+
+            targetList.push(taskName);
+
+            setStorageArray(storage[src], srcList);
+            setStorageArray(storage[target], targetList);
+        }
+
+        /**
+         * Removes task from list
+         *
+         * @param {string} taskName
+         * @param {string} src
+         */
+        function removeTask(taskName, src){
+            var srcList = getStorageArray(storage[src]);
+
+            var index = srcList.indexOf(taskName);
+            srcList.splice(index, 1);
+
+            setStorageArray(storage[src], srcList);
+        }
+
+        /**
+         * can be removed
+         * @param taskName
+         */
         function moveTaskToDone(taskName){
             var doneTasks = getStorageArray('doneTasks');
             var inProgressTasks = getStorageArray('inProgressTasks');
@@ -79,6 +137,8 @@
             addTask: addNewTask,
             moveTaskToProgres: moveTaskToProgres,
             moveTaskToDone: moveTaskToDone,
+            moveTask: moveTask,
+            removeTask: removeTask,
             getAllDoneTasks: getAllDoneTasks,
             getAllInProgressTasks: getAllInProgressTasks,
             getAllToDoTasks: getAllToDoTasks

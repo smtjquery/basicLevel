@@ -47,16 +47,35 @@
          * @param {string} target
          */
         function moveTask(taskName, src, target){
-            var toDoTasksList = getStorageArray(storage[src]);
-            var inProgressTasks = getStorageArray(storage[target]);
+            if (src === target) {
+                return false;
+            }
 
-            var index = toDoTasksList.indexOf(taskName);
-            toDoTasksList.splice(index, 1);
+            var srcList = getStorageArray(storage[src]);
+            var targetList = getStorageArray(storage[target]);
 
-            inProgressTasks.push(taskName);
+            var index = srcList.indexOf(taskName);
+            srcList.splice(index, 1);
 
-            setStorageArray(storage[src], toDoTasksList);
-            setStorageArray(storage[target], inProgressTasks);
+            targetList.push(taskName);
+
+            setStorageArray(storage[src], srcList);
+            setStorageArray(storage[target], targetList);
+        }
+
+        /**
+         * Removes task from list
+         *
+         * @param {string} taskName
+         * @param {string} src
+         */
+        function removeTask(taskName, src){
+            var srcList = getStorageArray(storage[src]);
+
+            var index = srcList.indexOf(taskName);
+            srcList.splice(index, 1);
+
+            setStorageArray(storage[src], srcList);
         }
 
         /**
@@ -119,6 +138,7 @@
             moveTaskToProgres: moveTaskToProgres,
             moveTaskToDone: moveTaskToDone,
             moveTask: moveTask,
+            removeTask: removeTask,
             getAllDoneTasks: getAllDoneTasks,
             getAllInProgressTasks: getAllInProgressTasks,
             getAllToDoTasks: getAllToDoTasks

@@ -111,13 +111,34 @@
                 moveToDone(tasks.getName(this));
             });
 
+            /**
+             * Init close task
+             */
+            $('.row').on('click', '.close', function () {
+                var taskName = $(this).parent().find('.title').text();
+                var srcContainer = $(this).parent().parent().attr('id');
+                closeTask(taskName, srcContainer);
+            });
+
+            /**
+             * INit droppable containers
+             */
             $('.tasks-list').droppable({
                 drop: function(ev, ui) {
-                    var taskName = $(ui.draggable).find('.title').text();
-                    $(ui.draggable).remove();
-                    moveTask(taskName, srcDropableName, this.id);
+                    if (srcDropableName !== this.id) {
+                        var taskName = $(ui.draggable).find('.title').text();
+                        $(ui.draggable).remove();
+                        moveTask(taskName, srcDropableName, this.id);
+                    }
                 }
             });
+        }
+
+        function closeTask(taskName, srcContainer) {
+            console.log(taskName, srcContainer);
+            service.removeTask(taskName, srcContainer);
+            render[srcContainer](allTasks[srcContainer]());
+            initDraggable();
         }
 
         /**

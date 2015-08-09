@@ -10,9 +10,42 @@
      */
     App.module.application = (function () {
 
+        /**
+         * Task name input
+         */
         var input;
 
+        /**
+         * Create new task button
+         */
         var btnNewTask;
+
+        /**
+         * Name of dropable source container
+         */
+        var srcDropableName;
+
+        /**
+         * Render functions
+         *
+         * @type {{todo: renderTodoList, inprogress: renderInprogressList, done: renderDoneList}}
+         */
+        var render = {
+            'todo': tasks.renderTodoList,
+            'inprogress': tasks.renderInprogressList,
+            'done': tasks.renderDoneList,
+        };
+
+        /**
+         * Get task type funcions
+         *
+         * @type {{todo: getAllToDoTasks, inprogress: getAllInProgressTasks, done: getAllDoneTasks}}
+         */
+        var allTasks = {
+            'todo': service.getAllToDoTasks,
+            'inprogress': service.getAllInProgressTasks,
+            'done': service.getAllDoneTasks,
+        };
 
         /**
          * Initialize application
@@ -68,35 +101,52 @@
              * Init move to in progress list action
              */
             $(tasks.getTodo()).on('click', '.actions a', function () {
-                moveToProgress(this);
+                moveToProgress(tasks.getName(this));
             });
 
             /**
              * Init move to done list action
              */
             $(tasks.getInprogress()).on('click', '.actions a', function () {
-                moveToDone(this);
+                moveToDone(tasks.getName(this));
+            });
+
+            $('.tasks-list').droppable({
+                drop: function(ev, ui) {
+                    var taskName = $(ui.draggable).find('.title').text();
+                    $(ui.draggable).remove();
+                    moveTask(taskName, srcDropableName, this.id);
+                }
             });
         }
 
         /**
-         * Move to progress list
-         * @param {$} elem
+         *
+         * @param {string} task - name
+         * @param {string} srcContainer - id
+         * @param {string} targetContainer - id
          */
-        function moveToProgress(elem) {
-            service.moveTaskToProgres(tasks.getName(elem));
-            tasks.renderTodoList(service.getAllToDoTasks());
-            tasks.renderInprogressList(service.getAllInProgressTasks());
+        function moveTask(task, srcContainer, targetContainer) {
+            service.moveTask(task, srcContainer, targetContainer);
+            render[srcContainer](allTasks[srcContainer]());
+            render[targetContainer](allTasks[targetContainer]());
+            initDraggable();
+        }
+
+        /**
+         * Move to progress list
+         * @param {string} taskName
+         */
+        function moveToProgress(taskName) {
+            moveTask(taskName, 'todo', 'inprogress')
         }
 
         /**
          * Move to done list
-         * @param {$} elem
+         * @param {string} taskName
          */
-        function moveToDone(elem) {
-            service.moveTaskToDone(tasks.getName(elem));
-            tasks.renderInprogressList(service.getAllInProgressTasks());
-            tasks.renderDoneList(service.getAllDoneTasks());
+        function moveToDone(taskName) {
+            moveTask(taskName, 'inprogress', 'done')
         }
 
         /**
@@ -119,6 +169,7 @@
         function addNewTask(taskName) {
             service.addTask(taskName);
             tasks.renderTodoList(service.getAllToDoTasks());
+            initDraggable();
         }
 
         /**
@@ -128,10 +179,17 @@
             tasks.renderTodoList(service.getAllToDoTasks());
             tasks.renderInprogressList(service.getAllInProgressTasks());
             tasks.renderDoneList(service.getAllDoneTasks());
+            initDraggable();
         }
 
+        function initDraggable() {
+            $('.task').draggable({
+                start: function(event, ui) {
+                    srcDropableName = $(this).parent().attr('id');
+                },
+                revert: true
+            });
+        }
     }());
 
 }(jQuery, App.module.service, App.module.taskList));
-
-

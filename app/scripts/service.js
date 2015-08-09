@@ -71,6 +71,27 @@
             }
         }
 
+        function deleteToDoTask(taskName) {
+            deleteTask(taskName, 'toDoTasksList');
+        }
+
+        function deleteInProgressTasks(taskName) {
+            deleteTask(taskName, 'inProgressTasks');
+        }
+
+        function deleteDoneTask(taskName) {
+            deleteTask(taskName, 'doneTasks');
+        }
+
+        function deleteTask(taskName, taskStorageArrayName) {
+            var tasksList = getStorageArray(taskStorageArrayName);
+
+            var index = tasksList.indexOf(taskName);
+            tasksList.splice(index, 1);
+
+            setStorageArray(taskStorageArrayName, tasksList);
+        }
+
         $(function () {
             init();
         });
@@ -81,7 +102,10 @@
             moveTaskToDone: moveTaskToDone,
             getAllDoneTasks: getAllDoneTasks,
             getAllInProgressTasks: getAllInProgressTasks,
-            getAllToDoTasks: getAllToDoTasks
+            getAllToDoTasks: getAllToDoTasks,
+            deleteToDoTask: deleteToDoTask,
+            deleteInProgressTasks: deleteInProgressTasks,
+            deleteDoneTask: deleteDoneTask
         };
     }());
 }(jQuery, window.localStorage));

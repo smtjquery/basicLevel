@@ -1,74 +1,53 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TODO list - jQuery workshop</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TODO list - jQuery workshop</title>
 
-  <link href="bower/bootstrap/css/bootstrap.css" rel="stylesheet">
-  <link href="styles/application.css" rel="stylesheet">
+    <link href="bower/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="styles/application.css" rel="stylesheet">
 </head>
 <body>
 
-  <div class="container">
-    <p class="well">
-      <b>TODO list - jQuery workshop</b>
-    </p>
+    <div class="container">
+        <p class="well">
+            <b>TODO list - jQuery workshop</b>
+        </p>
 
-    <fileldset class="form-inline">
-      <div class="form-group">
-        <label for="new-task">Name</label>
-        <input type="text" class="form-control" id="new-task" placeholder="Enter task name">
-      </div>
-      <button type="submit" class="btn btn-primary">Create</button>
-    </fileldset>
+        <fileldset class="form-inline">
+            <div class="form-group">
+                <label for="new-task">Name</label>
+                <input type="text" class="form-control" id="new-task" placeholder="Enter task name">
+            </div>
+            <button type="submit" onclick="App.module.application.addNewTask()" class="btn btn-primary">Create</button>
+            <button type="button" onclick="App.module.application.clearLocalStorage()" class="btn btn-primary">Clear local storage</button>
+        </fileldset>
 
-    <div class="row">
+        <div class="row">
 
-      <div class="task-container col-md-4">
-        <h2>To Do</h2>
+            <div id="toDo" class="task-container col-md-4">
+                <h2>To Do</h2>
+            </div>
 
-        <!-- template for task in todo state -->
-        <div class="task">
-          <div class="title">Test task nr 1</div>
-          <div class="actions">
-            <span>Actions:</span>
-            <a href="#">move to progress</a>
-          </div>
-          <div class="close glyphicon glyphicon-remove"></div>
+            <div id="inProgress" class="task-container col-md-4">
+                <h2>Progress</h2>
+            </div>
+
+            <div id="done" class="task-container col-md-4">
+                <h2>Done</h2>
+            </div>
+
         </div>
-
-      </div>
-
-      <div class="task-container col-md-4">
-        <h2>Progress</h2>
-
-        <!-- template for task in progress state -->
-        <div class="task">
-          <div class="title">Test task nr 2</div>
-          <div class="actions">
-            <span>Actions:</span>
-            <a href="#">move to done</a>
-          </div>
-          <div class="close glyphicon glyphicon-remove"></div>
-        </div>
-
-      </div>
-
-      <div class="task-container col-md-4">
-        <h2>Done</h2>
-      </div>
-
     </div>
-  </div>
-  
-  <script src="bower/jquery/jquery.js"></script>
-  <script src="bower/bootstrap/js/bootstrap.js"></script>
-  
-  <script src="scripts/init-module.js"></script>
-  <script src="scripts/service.js"></script>
-  <script src="scripts/application.js"></script>
-  
+
+    <script src="bower/jquery/jquery.js"></script>
+    <script src="bower/bootstrap/js/bootstrap.js"></script>
+
+    <script src="scripts/init-module.js"></script>
+    <script src="scripts/service.js"></script>
+    <script src="scripts/application.js"></script>
+
 </body>
 </html>

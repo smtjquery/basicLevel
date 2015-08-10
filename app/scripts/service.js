@@ -75,13 +75,25 @@
             init();
         });
 
+        function clearStorage()
+        {
+            var toDoTasks = getAllToDoTasks();
+            toDoTasks.clear();
+            var inProgressTasks = getAllInProgressTasks();
+            inProgressTasks.clear();
+            var doneTasks = getAllDoneTasks();
+            doneTasks.clear();
+        }
+
         return {
             addTask: addNewTask,
             moveTaskToProgres: moveTaskToProgres,
             moveTaskToDone: moveTaskToDone,
             getAllDoneTasks: getAllDoneTasks,
             getAllInProgressTasks: getAllInProgressTasks,
-            getAllToDoTasks: getAllToDoTasks
+            getAllToDoTasks: getAllToDoTasks,
+            init: init,
+            clearStorage: clearStorage,
         };
     }());
 }(jQuery, window.localStorage));

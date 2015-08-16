@@ -19,45 +19,27 @@
     <fileldset class="form-inline">
       <div class="form-group">
         <label for="new-task">Name</label>
-        <input type="text" class="form-control" id="new-task" placeholder="Enter task name">
+        <input type="text" class="form-control" id="new-task-input" placeholder="Enter task name">
       </div>
-      <button type="submit" class="btn btn-primary">Create</button>
+      <button id="new-task-button" type="submit" class="btn btn-primary">Create</button>
+	  <button id="delete-tasks-button" type="submit" class="btn btn-primary">Remove all</button>
     </fileldset>
 
     <div class="row">
 
-      <div class="task-container col-md-4">
-        <h2>To Do</h2>
+	<div class="task-container col-md-4">
+		<h2>To Do</h2>
+		<ul id="todoList" class="list-unstyled"></ul>
+	</div>
 
-        <!-- template for task in todo state -->
-        <div class="task">
-          <div class="title">Test task nr 1</div>
-          <div class="actions">
-            <span>Actions:</span>
-            <a href="#">move to progress</a>
-          </div>
-          <div class="close glyphicon glyphicon-remove"></div>
-        </div>
-
-      </div>
-
-      <div class="task-container col-md-4">
-        <h2>Progress</h2>
-
-        <!-- template for task in progress state -->
-        <div class="task">
-          <div class="title">Test task nr 2</div>
-          <div class="actions">
-            <span>Actions:</span>
-            <a href="#">move to done</a>
-          </div>
-          <div class="close glyphicon glyphicon-remove"></div>
-        </div>
-
-      </div>
+	<div class="task-container col-md-4">
+		<h2>Progress</h2>
+		<ul id="inProgressList" class="list-unstyled"></ul>
+	</div>
 
       <div class="task-container col-md-4">
         <h2>Done</h2>
+		<ul id="doneList" class="list-unstyled"></ul>
       </div>
 
     </div>

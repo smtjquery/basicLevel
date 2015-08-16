@@ -3,12 +3,14 @@
 
     App.module.service = (function () {
 
+		// public methods
+		
         function addNewTask(taskName) {
-            var toDoTasksList = getStorageArray('toDoTasksList');
+			var toDoTasksList = getStorageArray('toDoTasksList');
 
             toDoTasksList.push(taskName);
 
-            setStorageArray('toDoTasksList', toDoTasksList);
+            setStorageArray('toDoTasksList', toDoTasksList);			
         }
 
         function moveTaskToProgres(taskName){
@@ -37,7 +39,13 @@
             setStorageArray('inProgressTasks', inProgressTasks);
         }
 
-        function getAllDoneTasks(){
+       	function removeAllTasks()
+		{
+			localStorage.clear();
+			location.reload();
+		}
+		
+		function getAllDoneTasks(){
             return getStorageArray('doneTasks');
         }
 
@@ -48,14 +56,21 @@
         function getAllToDoTasks(){
             return getStorageArray('toDoTasksList');
         }
-
-        function getStorageArray(storageName){
+		
+		// public methods
+		
+		// private methods
+		
+		function getStorageArray(storageName){
             return JSON.parse(localStorage[storageName]);
         }
 
         function setStorageArray(storageName, obj){
             localStorage[storageName] = JSON.stringify(obj);
         }
+		
+		
+		// private methods
 
         function init() {
             if(!localStorage.toDoTasksList){
@@ -68,7 +83,7 @@
 
             if(!localStorage.doneTasks){
                 localStorage.doneTasks = JSON.stringify([]);
-            }
+            }			
         }
 
         $(function () {
@@ -76,12 +91,14 @@
         });
 
         return {
+			init: init,
             addTask: addNewTask,
             moveTaskToProgres: moveTaskToProgres,
-            moveTaskToDone: moveTaskToDone,
-            getAllDoneTasks: getAllDoneTasks,
-            getAllInProgressTasks: getAllInProgressTasks,
-            getAllToDoTasks: getAllToDoTasks
+            moveTaskToDone: moveTaskToDone,   
+			getAllDoneTasks: getAllDoneTasks,
+			getAllInProgressTasks: getAllInProgressTasks,
+			getAllToDoTasks: getAllToDoTasks,     
+			removeAllTasks: removeAllTasks
         };
     }());
 }(jQuery, window.localStorage));

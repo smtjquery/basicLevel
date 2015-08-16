@@ -10,84 +10,73 @@
    */
   App.module.application = (function () {
 	  
-	  function removeAllTasks() {
-		App.module.service.removeAllTasks();
+	  function removeAllTasks() 
+	  {
+		service.removeAllTasks();
 		showAllTasks();
 	  }
 	  
 	  function addNewTask(taskName) {
-		  var name=taskName.value;		  
-		  App.module.service.addTask(name);
-		  taskName.value='';
+		  var name=taskName.val();		  
+		  service.addTask(name);
+		  taskName.val("");
 		  showAllTasks();
 	  }	  
 	  
-	  function moveTaskToDone(taskName){	  
-		  App.module.service.moveTaskToDone(taskName);
+	  function moveTaskToDone(taskName) {	  
+		  service.moveTaskToDone(taskName);
 		  showAllTasks();
 	  }
 	  
-	  function moveTaskToProgres(taskName){
-		  App.module.service.moveTaskToProgres(taskName);
+	  function moveTaskToProgres(taskName) {
+		  service.moveTaskToProgres(taskName);
 		  showAllTasks();
-	  }
+	  }	  
 	  
-	  
-		function showAllTasks()
-		{
-			updateTodoView();			
-			updateProgressView();
-			updateDoneView();
-		}
+	function showAllTasks() {
+		updateTodoView();			
+		updateProgressView();
+		updateDoneView();
+	}
+	
+	function updateTodoView() {
+		var todoList = $("#todoList");
+		var elementsToShow = service.getAllToDoTasks();
+		var taskName;
+		var html='';
 		
-		function updateTodoView()
-		{
-			var todoList = document.getElementById("todoList");
-			var elementsToShow = App.module.service.getAllToDoTasks();
-			var taskName;
-			var html='';
-			
-			for (var i = 0, len = elementsToShow.length; i < len; i++) {
-			  taskName = elementsToShow[i];
-			  
-			  html+='<div class="task"><div class="title">' + taskName + '</div><div class="actions"><span>Actions:</span><a href="#" onclick=App.module.application.moveTaskToProgres("' + taskName + '")>move to progress</a></div><div class="close glyphicon glyphicon-remove"></div></div>';
-			}
+		$.each(elementsToShow, function(index, value) {
+			html+='<div class="task" draggable="true" data-taskName=' + value + '><div class="title">' + value + '</div><div class="actions"><span>Actions:</span><a href="#" onclick=App.module.application.moveTaskToProgres("' + value + '")>move to progress</a></div><div class="close glyphicon glyphicon-remove"></div></div>';
+		});
 
-			todoList.innerHTML = html;
-		}
+		todoList.html(html);
+	}
+	
+	function updateProgressView() {
+		var inProgressList = $("#inProgressList");
+		var elementsToShow = service.getAllInProgressTasks();
+		var taskName;
+		var html='';
 		
-		function updateProgressView()
-		{
-			var inProgressList = document.getElementById("inProgressList");
-			var elementsToShow = App.module.service.getAllInProgressTasks();
-			var taskName;
-			var html='';
-			
-			for (var i = 0, len = elementsToShow.length; i < len; i++) {
-			  taskName = elementsToShow[i];
-			  
-			  html+='<div class="task"><div class="title">' + taskName + '</div><div class="actions"><span>Actions:</span><a href="#" onclick=App.module.application.moveTaskToDone("' + taskName + '")>move to done</a></div><div class="close glyphicon glyphicon-remove"></div></div>';
-			}
-
-			inProgressList.innerHTML = html;			      
-		}
+		$.each(elementsToShow, function(index, value) {
+			html+='<div class="task" draggable="true" data-taskName=' + value + '><div class="title">' + value + '</div><div class="actions"><span>Actions:</span><a href="#" onclick=App.module.application.moveTaskToDone("' + value + '")>move to done</a></div><div class="close glyphicon glyphicon-remove"></div></div>';
+		});
 		
-		function updateDoneView()
-		{
-			var doneList = document.getElementById("doneList");
-			var elementsToShow = App.module.service.getAllDoneTasks();
-			var taskName;
-			var html='';
-			
-			for (var i = 0, len = elementsToShow.length; i < len; i++) {
-			  taskName = elementsToShow[i];
-			  
-			  html+='<div class="task"><div class="title">' + taskName + '</div><div class="close glyphicon glyphicon-remove"></div></div>';
-			}
-
-			doneList.innerHTML = html;
-		}
+		inProgressList.html(html);			      
+	}
+	
+	function updateDoneView() {
+		var doneList = $("#doneList");
+		var elementsToShow = service.getAllDoneTasks();
+		var taskName;
+		var html='';			
+	
+		$.each(elementsToShow, function(index, value) {
+			html+='<div class="task" draggable="true" data-taskName=' + value + '><div class="title">' + value + '</div><div class="close glyphicon glyphicon-remove"></div></div>';
+		});
 		
+		doneList.html(html);
+	}		
 
     /**
      * Initialize application
@@ -103,15 +92,15 @@
      */
     $(function () {
       init();
-	  App.module.service.init();
-	  showAllTasks();
+	  service.init();
+	  showAllTasks();	  
     });
 
     return {
 		removeAllTasks: removeAllTasks,
 		addNewTask: addNewTask,
 		moveTaskToProgres: moveTaskToProgres,
-		moveTaskToDone: moveTaskToDone
+		moveTaskToDone: moveTaskToDone	
 	};
 
   }());
